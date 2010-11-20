@@ -1,0 +1,53 @@
+#sn0.0:a
+#
+# This is a neural network with 2 inputs, 1 outputs,
+# 3 layers, 3 internal slabs, 3 links, and 8 trainable weights.
+#
+# The next string is an architecture descriptor:
+(2)(1)(1)
+#
+# The next section describes for each sublayer the activation function
+# and the auxiliary variables:
+none
+tanh
+logistic
+#
+# The next section describes for each link the net input function:
+3 # The number of links
+0 -l-> 1
+1 -l-> 2
+0 -l-> 2
+#
+# The next section states if the gradient for each link should be calculated:
+1 1 1
+# 
+# The next section contains all of the weights in verbose format.  The
+# format for the comment column is:
+# 
+#   (SOURCE) (DESTINATION) VAR[index, index, index]
+# 
+# where
+# 
+#   SOURCE       two integers for layer no. and sublayer no.
+#   DESTINATION  two integers for layer no. and sublayer no.
+#   VAR          one of A, u, v, w, a, or b
+#   INDICES      three for A, two for u, v, and w, and one for a and b
+# 
+# For the SOURCE or DESTINATION, if the sublayer number is -1 then the
+# link connects to (or from) an entire layer (i.e., not a sublayer).
+# 
+# As for the indices, the first always represents an output in the
+# destination layer.  For 'A' the second two indices refer to a pair of
+# nodes in the source layer.  For 'u' and 'v', the second index refers
+# to a single node in the source layer.  And for 'w', the second index
+# always refers to one of the NUMAUX variables which are uniquely
+# determined by the net function type.
+# 
+-6.471556110272	# (  0, -1 ) (  1, -1 ) u[0][0]
+-4.316178842481	# (  0, -1 ) (  1, -1 ) u[0][1]
+ 1.390515388266	# (  0, -1 ) (  1, -1 ) a[0]
+-4.981336481026	# (  1, -1 ) (  2, -1 ) u[0][0]
+ 0.222125719829	# (  1, -1 ) (  2, -1 ) a[0]
+-4.081517655158	# (  0, -1 ) (  2, -1 ) u[0][0]
+-3.810108567159	# (  0, -1 ) (  2, -1 ) u[0][1]
+ 0.567230719830	# (  0, -1 ) (  2, -1 ) a[0]

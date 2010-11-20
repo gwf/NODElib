@@ -1,0 +1,338 @@
+
+    
+    NODElib FAQ
+    
+    
+    
+    --------------------------------------------------------------------
+    
+    This file contains a list of frequently asked questions about
+    NODElib. Is there anything missing? If so, send your FAQs to Gary W.
+    Flake ( gary.flake@usa.net ).
+    
+    --------------------------------------------------------------------
+    
+    Questions Regarding the Distribution:
+      * 1.1: Where did the name "NODElib" come from?
+      * 1.2: Where can I get the latest version?
+      * 1.3: Where do I report bugs?
+      * 1.4: What are all of the files in the etc directory?
+      * 1.5: What does the version number mean?
+      * 1.6: What happened to the fancy Makefiles?
+      * 1.7: Is the old version of NODElib supported?
+      * 1.8: Why did the directory structure change?
+      * 1.9:&nbsp; What is NLE and do I need it?
+    
+    Programming:
+      * 2.1: Why have the #include directives changed?
+      * 2.2: Will NODElib work on a DOS box?
+      * 2.3: Can I extend the libraries? Should I?
+      * 2.4: How should my source code be compiled and linked?
+      * 2.5: What happened to the PATTERN type?
+      * 2.6: What compile and linking options exist for the SVD routine?
+      * 2.7: How much faster is the LAPACK SVD over the original?
+    
+    Getting More Information:
+      * 3.1: I can't build the docs! Help!
+      * 3.2: How do I print out the docs?
+      * 3.3: When will XXX be added?
+    
+    --------------------------------------------------------------------
+    
+    Questions Regarding the Distribution:
+    
+    
+    
+    --------------------------------------------------------------------
+    
+    1.1: Where did the name "NODElib" come from?
+    
+        
+    --------------------------------------------------------------------
+    
+    1.2: Where can I get the latest version?
+    
+    
+    --------------------------------------------------------------------
+    
+    1.3: Where do I report bugs?
+    
+    
+    To Gary Flake at gary.flake@usa.net . Please list the version,
+    the platform, any sample output, any other description that you can
+    provide, and a sample of some source that exercises the bug.
+    
+    --------------------------------------------------------------------
+    
+    1.4: What are all of the files in the etc directory?
+    
+    
+    The etc directory is the kitchen sink of the distribution. You don't
+    need to know about the perl scripts, Bourne shell scripts, and C
+    source code. But you should probably know about every other file in
+    etc that begins with a capital letter:
+      * CREDITS: As the name implies, thanks to those who help.
+      * ChangeLog: Detailed information regarding every change to the
+        source code goes here.
+      * Configure: The only file in the distribution that you should
+        ever need to edit. See INSTALL for details.
+      * FAQ: This file.
+      * INSTALL: How to build NODElib.
+      * Makefile.dos: A vanilla makefile that sits in the src directory.
+        Use this as a last resort, or as a template.
+      * NEWS: All the print that's fit to news! Recent features are
+        described here.
+      * NOTES: Things that the maintainer doesn't want to forget. Don't
+        worry about this.
+      * README: A sales pitch for why you would want to use NODElib.
+      * TODO: A list of features to be added when time permits.
+    
+    --------------------------------------------------------------------
+    
+    1.5: What does the version number mean?
+    
+    
+    The version number consists of a triple in the form of X.Y.Z, where
+    X is the primary version, Y is the subversion, and Z is the
+    patch-level. Here is how to interpret the numbers:
+      * The patch level is incremented whenever bugs are fixed or
+        documentation is added.
+      * The subversion is incremented whenever the API is expanded to
+        include new functions, the interface to a data-type has changed,
+        or whole new modules are added.
+      * The primary version is incremented whenever significant changed
+        to the API are made.
+    
+    --------------------------------------------------------------------
+    
+    1.6: What happened to the fancy Makefiles?
+    
+    
+    The old Makefiles where a headache for people who's .cshrc files
+    where not written correctly (HINT: 'csh -c true' should print
+    absolutely nothing for a user who has things configured correctly.)
+    The main feature of the old makefiles was that distributions could
+    be built without doing a ``make clean''. Needless to say, this
+    feature is only useful to the maintainer, so the Makefiles were
+    gutted.
+    
+    Also, there is now only one level of recursive make calls (to the
+    main subdirectories), so NODElib builds much faster now.
+    
+    --------------------------------------------------------------------
+    
+    1.7: Is the old version of NODElib supported?
+    
+    
+    Yes and no. Everything that you did with the old version should
+    still work, except that you will have to change your #include
+    directives. Also, Since the PATTERN type is gone, you may need to
+    rewrite things in terms of a SERIES or a DATASET. See, Q2.1 and
+    Q2.5, below.
+    
+    --------------------------------------------------------------------
+    
+    1.8: Why did the directory structure change?
+    
+    
+    Having sub-libraries was nice, in theory, but no one was using
+    individual sub-libraries to any real degree. Also, the system builds
+    much faster with its current organization.
+    
+    I like the idea that directories are all organized according to file
+    type. Also, the source is a little easier to keep track of since all
+    of the soft linkage is no longer needed.
+    
+    --------------------------------------------------------------------
+    
+    1.9: What is NLE and do I need it?
+    
+    
+    NLE stands for NODElib extensions. It is a library that contains
+    useful code that extends the capability of NODElib but has been
+    written by authors external to SCR. The idea here is that all code
+    in NLE is extremely stable and not subject to change. Thus, binary
+    releases will be available at all times and, in general, you will
+    not need to worry about constantly upgrading your version of NLE.
+    Also note that the NODElib interface to NLE is such that it is
+    always possible to work without NLE since the code in NLE will
+    either offer an improved implementation of code that already exists
+    in NODElib or it will implement a very nonessential "bell and
+    whistle."
+    
+    Currently, NLE contains the minimal portions of LAPACK, BLAS, and
+    F2C needed to use LAPACK's SVD routine. The pinv() , pca() , and
+    nn_solve() routines use an SVD for the bulk of thier work, so the
+    improved version offers substantial time saving.
+    
+    --------------------------------------------------------------------
+    
+    Programming:
+    
+    
+    
+    --------------------------------------------------------------------
+    
+    2.1: Why have the #include directives changed?
+    
+    
+    How many times have you written a file named ``misc.h''? The problem
+    was, NODElib includes the same file, so there is some obvious name
+    space pollution to contend with. There are only two possible fixes.
+    First, I thought that we could rename everything in NODElib to begin
+    with an ``sl'' prefix. Not only was this ugly, but it was very hard
+    to keep the names short enough for DOS. The best solution was to
+    make each include directive be preceded by ``nodelib/'', thus
+    yielding directive of the form: #include <nodelib/misc.h> . This
+    solves the name space problem, while keeping the filenames legible.
+    
+    Also, this is the same thing that you would do if using X Windows,
+    i.e., #include <X11/Core.h> .
+    
+    --------------------------------------------------------------------
+    
+    2.2: Will NODElib work on a DOS box?
+    
+    
+    Wolf-Ekkehard Blanz has ported it to a WIN-32 library. Emin
+    Aleskerov has built a DOS demo with it, so it looks good.
+    
+    --------------------------------------------------------------------
+    
+    2.3: Can I extend the libraries? Should I?
+    
+    
+    Yes and yes. But if you make any significant changes that are worth
+    adding to the distribution, please send them to me. In fact, this is
+    the best way to contribute (i.e., instead of saying ``Here is some
+    code for XYZ. Make it work.'')
+    
+    --------------------------------------------------------------------
+    
+    2.4: How should my source code be compiled and linked?
+    
+    
+    If $NODELIBHOME contains the name of a a directory with a built
+    distribution, you need to compile your code with the command switch
+    -"I$NODELIBHOME/include" passed to the compiler, and the linker
+    needs "-L$NODELIBHOME/lib -lnode -lm" at the end of you link
+    command.
+    
+    --------------------------------------------------------------------
+    
+    2.5: What happened to the PATTERN type?
+    
+    
+    The PATTERN type died but is now reincarnated as SERIES. There was a
+    name space conflict under Windows, as Microsoft was using PATTERN to
+    mean some sort of primitive painting object. Also, the name SERIES
+    more accurately conveys what the data type is really useful for
+    
+    Also, note that DATASET is now the type that neural networks operate
+    on. A DATASET is really a definition for how some sort of data
+    object should be interfaced. A special case of a DATASET is a
+    SERIES. This is A Good Thing because there are now ``methods'' for
+    accessing other objects that could work like a DATASET: C matrices,
+    Fortran matrices, and huge files, to name just a few.
+    
+    --------------------------------------------------------------------
+    
+    2.6: What compile and linking options exist for the SVD routine?
+    
+    
+    There are three ways to compile NODElib in terms of how an SVD is
+    computed. You can choose the method that is used by editing the
+    etc/Configure file in the NODElib distribution. The configurable
+    compile options are given below.
+      1 Use the simplest SVD version which is included in the library.
+        This requires no additional work on your part, should give fair
+        results, but will be unbelievably slow for large problems.
+            
+            CPPFLAGS = -I../include
+            LDFLAGS = -L../lib
+            LIBS = -lnode -lm
+      2 If you have BLAS, LAPACK, and F2C installed on your system, then
+        NODELIB can be linked to them. This will give vastly superior
+        results to option 1., but you must have the three libraries:
+            
+            CPPFLAGS = -I../include -DLAPACK
+            LDFLAGS = -L../lib -L/LAPACK_BLAS_AND_F2C_LIBRARY_PATHS
+            LIBS = -lnode -llapack -lblas -lf2c -lm
+      3 If neither of the above options are appealing, then link
+        NODElibto NLElib (NODElib extensions). Precompiled libraries are
+        available for Sun-Solaris, i386-Linux, and i386-WinNT. NLElib
+        consists of the minimal portions of BLAS, LAPACK, and F2C needed
+        to get the industrial strength SVD routine working. NLElib is
+        static in that there are no plans for any changes to be made to
+        it. Thus, you get this library once, and never worry about it
+        again.
+            
+            CPPFLAGS = -I../include -DSL_EXTENSIONS
+            LDFLAGS = -L../lib -L../../nle
+            LIBS = -lnode -lnle -lm
+    
+    --------------------------------------------------------------------
+    
+    2.7: How much faster is the LAPACK SVD over the original?
+    
+    
+    The following table contains times for calulating the pseudo-inverse
+    of a random NxN matrix on a P5/90 running Linux.
+
+                Original        LAPACK          Original /
+        N       SVD             SVD             LAPACK
+        ----    --------        ------          ----------
+        5       0.01            0.03            0.33333
+        10      0.02            0.05            0.4    
+        15      0.05            0.06            0.83333
+        20      0.09            0.10            0.9    
+        25      0.18            0.16            1.125  
+        30      0.23            0.22            1.04545
+        40      0.63            0.40            1.575  
+        50      1.41            0.65            2.16923
+        60      2.61            1.03            2.53398
+        70      5.34            1.53            3.4902 
+        80      11.27           2.23            5.05381
+        90      14.88           2.92            5.09589
+        100     23.37           3.80            6.15   
+        150     155.07          11.78           13.1638
+        200     619.42          30.69           20.1831
+        250     1486.99         60.50           24.5783
+        300     3376.61         108.20          31.2071
+        1724    ???????         25245.7         ???????
+        
+    
+    --------------------------------------------------------------------
+    
+    Getting More Information:
+    
+    
+    
+    --------------------------------------------------------------------
+    
+    3.1: I can't build the docs! Help!
+    
+    
+    Hmm. This probably means that you don't have perl installed or
+    visible on your system. See Q1.2 and get it from the prebuilt
+    distribution.
+    
+    --------------------------------------------------------------------
+    
+    3.2: How do I print out the docs?
+    
+    
+    There are many ways. Using the neural network documentation as an
+    example, use "groff -man man/nn.3 > nn.ps" to make a PostScript
+    version, or use "nroff -man/nn.3 > nn.cat" for a boring text only
+    version, or use Netscape to dump out a PostScript version of the
+    HTML documents. The last technique gives the best results, IMHO.
+    
+    --------------------------------------------------------------------
+    
+    3.3: When will XXX be added?
+    
+    
+    See the TODO file.
+    
+    --------------------------------------------------------------------

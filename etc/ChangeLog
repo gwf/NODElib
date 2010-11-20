@@ -1,0 +1,872 @@
+2005-04-17  Gary William Flake  <gary@marzipan.local>
+
+	* VERSION: 1.31.1 - hacked some css together to make the
+	documentation less than ugly (barely).
+
+2004-11-18  Gary William Flake  <flakeg@flakeg-mac.corp.yahoo.com>
+
+	* VERSION: 1.31.1
+
+	* nodelib.h: changed URL's to point to yahoo instead of NEC.
+
+2003-07-23  Gary William Flake  <flakeg@flakeg-ws.research.p4pnet.net>
+
+	* VERSION: 1.31.0
+
+	* ALL: cleaned up a bunch of stuff that would compile cleanly
+	under linux.  I guess the work has changed in the past year
+
+2002-03-10  Gary William Flake  <flake@flakenstein.flake.org>
+
+	* VERSION: 1.30.1
+
+	* everything: changed some dangling '#endif FOO' type things
+	flying around.  Added include errno.h to ulog.c.  Made first
+	attempt at having 'extern "C" {' type declarations in all header
+	files.  Fixed a couple of typos.
+
+2002-03-07  Gary William Flake  <flake@flakenstein.flake.org>
+
+	* VERSION: 1.30.0
+
+	* src/smo.c: DAMN! I stupidly put a test version of NODElib out on
+	the website.  The test version contained an alternate version of
+	smo.c that was designed to be a sanity check for the code that I
+	published in Machine Learning.  This has now been corrected.  How
+	do you know that you had the bad code?  If you ran smorch, and it
+	produced an obscene amount of debugging information, then you had
+	the bad code.  Sorry.
+
+2001-12-21  Gary Flake  <flake@cartman.nj.nec.com>
+
+	* VERSION: 1.29.4
+
+	* src/nnlink.c:  apparently I fixed a bug for keeping the weight
+	count local to a link.  Funny thing is, I can't remember doing
+	this.  Senility, here I come.
+
+	* src/smo.c: made this version have have a regression step
+	identical to my ML paper.  In other words, it's now correct.
+
+2000-10-05  Gary William Flake  <flake@cartman.nj.nec.com>
+
+	* VERSION: 1.29.3
+
+	* etc/version.sh: piped all system information to tr '/' ' ' to
+	remove extraneous slashes from output.  The slashes were screwing
+	up up a later sed expression.
+
+2000-09-28  Gary William Flake  <flake@cartman.nj.nec.com>
+
+	* VERSION: 1.29.2
+
+	* ulog.c: made ulog_file_ptrs[] initialized at runtime so that the
+	stupid linux problems with stderr/stdout not being statically
+	defined go away.
+
+2000-04-26  Gary William Flake  <flake@flakenstein.flake.org>
+
+	* VERSION: 1.29.1
+	
+	* global: cleaned up documentation for first public release.
+
+
+2000-01-26  Gary William Flake  <flake@cartman.nj.nec.com>
+
+	* VERSION: 1.28.4
+
+	* global: cleaned up some make problems with libnle.a
+
+2000-01-11  Gary William Flake  <flake@flakenstein>
+
+	* VERSION: 1.28.3
+
+	* global: Haven't taken notes in a while.  Oh well.  Just fixed minor
+	comile issues.  Clean up some docs.  Libnle.a is now part of the
+	distribution.
+
+1999-04-29  Gary William Flake  <flake@godel>
+
+	* VERSION: 1.28.0
+
+	* smo.c: dramatic changes to the regression code.
+
+1998-09-03  Gary William Flake  <flake@opus>
+
+	* VERSION: 1.27.17
+
+	* etc/buildas.sh: minor changes to fix 'make newdist'.
+
+1998-08-26  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.16
+
+	* smo.c: made a change to smo_batch() to fix how bad KKT exemplars
+	are added.  Fixed it for regression.  Made it more efficient and
+	more compact.
+
+Mon Aug 24 12:25:33 1998  Gary Flake  <flake@radar>
+
+	* VERSION: 1.27.15
+
+	* config.h: put in a prototype for perror() to shut up the stupid
+	SunOS compilers.
+
+	* tsvm.c: consolidated tsvmnew.c and tsvmshort.c into it.  Now
+	everything is in one file, which means that when I add a anew
+	feature, I only have to edit one file.
+
+	* smo.c: forgot to check for bad steps in the new smo_step()
+ 	routine.  Fixed.  Added lazy_loop mode; if this is not an epoch
+ 	that requires that we look at every multiplier, then smo_examine()
+ 	will stop looking for a second multiplier after it looks at the
+ 	nonbounds, i.e., it won't look at the bounded ones.  This helps to
+ 	avoid some nasty thrashing when a seconf multiplier cannot be
+	found among the nonbounds.
+
+1998-08-23  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.14
+
+	* smo.c: worst_first is a new field that is checked in
+	smo_main().  If set, the SMO code will always attempt to optimize
+	the exemplar with the KKT condition that is most violated.  The
+	seems to help greatly on regression problems especially when
+	combined with best_step, but for classification it's not cler if
+	it helps.  If the worst KKT exemplar can't be optimized, then it
+	reverts to looping over the nonbounds.
+
+	* VERSION: 1.27.13
+
+	* smo.c: cache_destroy() now written.
+
+	* smo.c: divided smo_step() into smo_calculate_step() and
+	smo_step().  The former caculates the step but does not make it
+	while the latter calls the former and then does the step.  This
+	allows us to search for the step with the largest decrease in the
+	objective function.  Doing so is an option controlled by the
+	best_step field.
+
+1998-08-22  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.12
+
+	* smo.c: To do: add more clever cache heuristics which consider
+	the case when the cache size if as big as the number nonbounds, or
+	is big enough to hold nonbounds * everything else, or can simply
+	hold everything; write cache_destroy().
+
+	* smo.c: changed a great deal.  Found a subtle bug in the
+	incremental output calculations.  Fixed.  Regression now works.
+	This required boundary calculations for nine seperate cases.
+	These changes are also now in sync with the batch mode.  Second
+	heuristic code now has a complex version.  If the cache size is
+	larger than the number of nonbounds, then all possible step sizes
+	are computed and the best one is taken.  This yields a significant
+	improvement in speed.  Also added incremental calculation of
+	objective function.  This is very nice to track progress.  Now the
+	code determines on initialization if the dataset yields safe
+	pointers, and if so, it does The Right Things, that is, the fastest.
+
+1998-08-20  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.11
+
+	* smo.c: still working on regression.  Must be a math problem.
+	Objective function isn't doesn't always decrease even when new
+	outputs now equal targets (but big changes in b can do this).
+
+	* VERSION: 1.27.10
+
+	* smo.c: still working on regression.
+
+Wed Aug 19 16:17:32 1998  Gary Flake  <flake@radar>
+
+	* VERSION: 1.27.9
+
+	* smo.c: first stab at making regression work.
+
+1998-08-18  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.8
+
+	* smo.c: now have subset training and the new cache working
+	together.  Everything seems to work.
+
+1998-08-16  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.7
+
+	* smo.c: Rewrote the cache code from scratch.  A whole m x m
+	subset is now cached.  It works amazingly fast.  I've also
+	developed a few heuristics for when cache values should and should
+	not be prioritized, which appear to work very well as well.
+
+	* smo.c: Lots of changes.  Ultra Clever [tm] mode now works, but
+	it results in a slightly different optimization procedure because
+	of roundoff errors in computing the outputs.  This isn't so much
+	of a big deal as outputs differ by less than 1e-14, typically.
+	Averaged over many runs, Ultra Clever [tm] mode works
+	significantly better, but because of the statistics of updating,
+	it can occasionally run slower.
+
+1998-08-14  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.6
+
+	* smo.c: I think caching really works now.
+
+1998-08-13  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.5
+
+	* smo.c - temporarily turned off Ultra Clever [tm] output
+	evaluation.  It seems that it may not be so clever after all.  I
+	don't know why, but it is making more kernel evaluations than
+	using strict incremental.  This is wierd.
+
+1998-08-12  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.4
+
+	* smo.c - have new Ultra Clever [tm] output evaluation.  Fixes put
+	in per Platt's suggestion.  Batch mode works, but it doesn't seem
+	to work very well on simple problems.
+
+1998-08-10  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.3
+
+	* smo.c: still debugging.
+
+	* VERSION: 1.27.2
+
+	* smo.c: trying to debug smo_batch().  Problem has to do with
+	optimizing the same pair twice.
+
+	* VERSION: 1.27.1
+
+	* smo.c: modifed SMO algorithm per Platt's suggestion.  Much fast
+	now, but smo_batch() no longer works.  Odd.
+
+1998-08-08  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.27.0
+
+	* smo.c: first version of batched SMO.  Ain't I cool?
+
+1998-08-07  Gary William Flake  <flake@localhost>
+
+	* VERSION: 1.26.3
+
+	* misc.c: added function shuffle_indices and shuffle_unsigned_indices.
+
+	* dsmethod.c: added dsm_isubset_method.  This included the
+	addition of dsmisubset.[ch].
+
+Fri Jul 31 11:59:23 1998  Gary Flake  <flake@radar>
+
+	* VERSION: 1.26.2
+
+	* svm.c: Changed svm_write_fp() to use a "% .12e" format so that
+	precision is very high in the output.
+
+	* smo.c: Found a stupid bug at the end of  smo_train().  In the
+	last loop, where we copy all of the stuff from the SMO to the SVM,
+	the loop to copy the inputs called dataset_x() during each
+	iteration of the innermost loop, which was not necessary.  This
+	made things extremely slow.
+
+1998-07-29  Gary William Flake  <flake@localhost>
+
+	* V 1.26.1: fixed bug in smo_main which didn't sum up the number
+	of changed multipliers in the short loop.
+
+	* manifest.pl: fixed to work under all platforms.
+
+Wed Jul 22 13:21:01 1998  Gary Flake  <flake@radar>
+
+	* V 1.26.0: new option stuff.
+
+	* xor.c: has example of hot to use the new OPTION_SET type.  Other
+	examples will probably be modified to use this feature.
+
+	* misc.c: the options parsing routine can now except an OPTION_SET
+	type entry, which allows you to avoid ugly if/then groupings to
+	handle parsing that get_options() could not do before.
+
+	* misc.h: added OPTION_SET, OPT_SET, and friends.
+
+Mon Jul 20 13:52:54 1998  Gary Flake  <flake@radar>
+
+	* V 1.25.1: with some new docs.
+
+	* smo.c: many speedups.  All nodes maintained in free list.  Cache
+	elems are now unions (with a pointer) and are kept in free list for
+	speed.  All xmallac() / xfree() calls have been mostly removed
+	from the innermost loop.  With caching: speed comparible to
+	fastest non-cached (non-NODElib) version.  Without caching: about
+	half the speed.  Of course, these times will greatly favor
+	problems that whose xdim >> 2.
+	
+	* dataset.c: small functions inlines.
+
+	* dsmethod.c: small functions inlined.
+
+	* series.c: little short-cut added for xdim == 1: internal array
+	are not use; instead pointer inside main array is returned.  A
+	couple of key functions have been inlined for speed.
+
+	* cache.c: Like hash.c, now has obj pointer which is passed to
+	numify() and  compare() functions.  A free list is also maintained
+	for list nodes so that low-level memory management is avoided.
+
+	* hash.c: rewrote HASH_FUNC() as an inlined function that uses
+	only two multiplies and a subtraction.  Much faster.  Also, added
+	*obj pointer in struct which is passed to numify() and compare()
+	functions.  This is useful when you need to use internal
+	information to compute a key.
+
+Fri Jul 17 15:03:22 1998  Gary Flake  <flake@radar>
+
+	* V 1.25.0: now have section in options.h that takes care of all
+	SunOS oddities.  By linking etc/Configure to etc/Configure.sunos,
+	we get clean compiles under the suns.  Solaris and Linux should
+	just use etc/Configure.unix.
+
+1998-07-16  Gary William Flake  <flake@turing>
+
+	* V 1.24.0: first industrial strength version of SVM.
+
+1998-07-15  Gary William Flake  <flake@turing>
+
+	* V 1.23.0: first version of cache routines.  tcache seems to work.
+
+1998-07-14  Gary William Flake  <flake@turing>
+
+	* V 1.22.0: added linked list routines. tlist.c checks out okay.
+
+1998-05-19  Gary William Flake  <flake@opus>
+
+	* Fixed bugs in html generating perl scripts that made it so that 
+
+	* Changed ulog() so that simple basename is used as prefix.
+
+	* Added simple_basename();
+
+1998-02-24  Gary William Flake  <flake@opus>
+
+	* V 1.21.1: Completely reworked the documentation.  HTML is now
+	generared directly from the headers and is completely
+	cross-referenced.
+
+1998-02-08  Gary William Flake  <flake@wonderboy>
+
+	* V 1.20.1: optmize.h has some error code defined.  Still need to
+	plug them in.
+
+1998-02-05  Gary William Flake  <flake@wonderboy>
+
+	* V 1.20.0: Many changes to the optimization algorithms.
+	Essentially, all algorithms now have discrete and stochastic
+	versions that can be set on a spectrum.  Some call formats are now
+	deprecated.  More notes to come tomorrow.
+
+1998-02-04  Gary William Flake  <flake@opus>
+
+	* V 1.19.0: Made the markup codes in h2man very similar to LaTeX.
+	The makes for documentation that is easier to read and potentially
+	portable.
+
+1998-02-02  Gary William Flake  <flake@opus>
+
+	* V 1.18.0: Generalized the R{} operators so that they can be used
+	to calculate partial derivatives of functions of the Jacobian and
+	the gradiant with respect to the weights.  The functions
+	nn_Rforward() and nn_Rbackward() are now public functions.
+
+1998-01-26  Gary William Flake  <flake@wonderboy>
+
+	* V 1.17.2: Found bug in nn_lock_link() and nn_unlock_link() which
+	had LAYER->v confused with LAYER->w.
+
+	* V 1.17.1: Add nn_get_Rweights(), nn_set_Rweights(),
+	nn_get_Rgrads(), and nn_set_Rgrads().
+
+	* V 1.17.0: Added opt_levenberg_marquardt().
+
+Tue Jan 20 11:33:46 1998  Gary William Flake  <flake@opus>
+
+	* V 1.16.0: Added nn_write_verbose().
+
+Fri Jan  9 10:30:55 1998  Gary William Flake  <flake@opus>
+
+	* V 1.15.0: changing OPTIMIZER to use pointer to pointer to
+	doubles for referencing weights and gradients.
+
+	* V 1.14.1: added short-circuit of backward pass based on
+	need_grads dependencies.
+
+	* V 1.14.0: greatly simplified memory managment in NN.
+
+Wed Jan  7 15:46:01 1998  Gary William Flake  <flake@opus>
+
+	* V 1.13.1: greatly improved line searches.  Some checks still
+	need to be added.
+
+Tue Jan  6 13:35:23 1998  Gary William Flake  <flake@opus>
+
+	* V 1.13.0: Profoundly changed OPTIMIZER interface.  All space is
+	now local to the optimizing routines.  Line searches expect,
+	weight, direction, and initial step size, as arguments.  There is
+	no longer a problem with abusing AUX space, since all space is
+	local.
+
+Wed Nov 19 13:12:34 1997  Gary William Flake  <flake@opus>
+
+	* V 1.12.0: Added DSM_UNION type which allows many DATASETs to be
+	treated as one.
+
+Tue Nov 18 15:02:54 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.11: fixed bug in nnoffln.c in both nn_offline_test() and
+ 	nn_offline_grad().  The "funky condition" test (which tests for
+ 	NaN in the input vectors) broke out of the wrong loop since the
+ 	test itself was in a loop over the inputs.  Thanks to Scott for
+ 	finding this.
+
+Tue Sep 16 15:05:04 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.10: changed online code to return errsum / totalouts so
+	as to match the offline routines.
+
+Fri Sep  5 10:01:57 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.9: Alias links now supported but untested.
+
+Wed Sep  3 15:13:14 1997  Gary William Flake  <flake@opus>
+
+	* Significantly changed interface to netfuncs.  Now forward and
+	backwards take dst/src layers as last argument (respectively).
+
+Tue Jul  8 10:34:02 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.8: Slightly rewrote xrealloc().
+
+Mon Jul  7 16:07:59 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.7: display_options() slightly modified and made non-static.
+
+Mon Jun 16 12:11:40 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.6: new example, constrained.c, demonstrates how a neural
+	network can be trained with an enforced constraint on the
+	structure of the weights.
+
+	* nn->info.online_hook now called at the very begining of the
+ 	online gradf and funcf functions (instead of the end).  This
+ 	allows for constraints to be enforced prior to optimization the
+ 	step.
+
+Tue Jun  3 09:29:59 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.5: Uses options.h for all compile time options.  This
+	allows #define's to be used to override names to fix namespace
+	problems.
+
+Thu May 29 16:01:01 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.4: Added nn->info.online_hook.
+
+Wed May 28 10:32:58 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.3: euclidean net func now has 2 in demoninator.
+
+	* V 1.11.2: Debugged new kmeans code.  Darken contributed tkmeans.c.
+
+Tue May 27 11:20:22 1997  Gary William Flake  <flake@opus>
+
+	* V 1.11.1: removed some NT warnings.  Debugged new kmeans()
+	code.  I still need to write a test driver for the kmeans.
+
+	* V 1.11.0:  Very significant changes to kmeans() and
+	nn_create_*() routines.  All new global veriable to control the
+	default behaviors.
+
+Fri May  9 15:57:48 1997  Gary William Flake  <flake@opus>
+
+	* V 1.10.0: Variable length delays for SERIES.
+
+Wed May  7 10:42:37 1997  Gary William Flake  <flake@opus>
+
+	* V 1.9.11: Standard backprop is now in place.  It uses the
+	subsample field of the nn->info structure to determine the size of
+	an epoch.  The batched routines were returning the RMSE and not
+	the selected error value, which means that the alternative error
+	functions may not have been working correctly.  I need to look
+	into this.
+
+	* Kmeans is now initalized with a shuffled deck.
+
+Thu Apr 24 15:04:31 1997  Gary William Flake  <flake@opus>
+
+	* V 1.9.10:
+
+	* Working on online learning.
+
+	* Added random versions of nn_create_{smlp,rbf,nrbf}().
+
+	* Renamed NVN to SMLP.
+
+Fri Mar 21 15:29:14 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.9: Still working on NVN.  Added unitminus links.
+
+Fri Mar 21 11:21:07 1997  Gary William Flake  <gary@localhost.flake.org>
+
+	* V 1.9.8: NVN code seems to work well, but still in Beta state.
+
+Thu Mar 20 17:33:44 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.7: In the middle of editing nn_create_nvn().
+
+Fri Mar  7 10:20:43 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.6: Memory leak in NN_create_rbf_internal() which called
+ 	kmean() for the clusters which returns a DATASET with the
+ 	centroids.  The problems was that the DATASET was of a DSM_MATRIX,
+ 	which was not freed up and neither was the double ** passed to it.
+	All hail xalloc.h!
+
+	* V 1.9.5: Fix for dumbass Solaris printf().
+
+Thu Mar  6 10:08:56 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.4: Weight decay built into OPTIMIZER structure.
+
+Wed Mar  5 16:38:18 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.3: Bug in nfnormb() which was found by the new test
+	program tnrbf.c.
+
+Mon Mar  3 10:53:21 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.2: nn_offline_test() and nn_offline_grad() now return the
+	RMSE.
+
+Fri Feb 28 10:42:51 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.9.1: Typo in nfnormb().
+
+	* V 1.9.0: Added a normaizing link type.  New function called
+	nn_create_nrbf() creates an rbf with normalized basis functions.
+	The R calls are not yet complete for the norm links.
+
+Wed Feb 12 12:03:14 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.12: Enhancing array package. array_to_pointer() gets an
+ 	extra byte and used xcalloc() so that returned strings can be
+ 	printed.  Found a subtle bug in array_to_pointer().  Everything
+ 	seems to work now.  New functions and macros:
+ 	array_destroy_index(), array_remove_index(), and
+ 	array_insert_index().  New test program, tarray.c.
+
+Wed Jan 22 11:50:02 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.11: No more aux varaibles in afuncs.
+
+Mon Jan 20 11:49:19 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.10: Cleaned up dsm_file stuff and added a skip field.
+	Removed unused skip variable in nn_solve().
+
+Fri Jan 17 12:27:53 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.9: kopy connections.
+
+Thu Jan 16 11:11:54 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.8: dsm_file routines are now memory mapped under unix.
+
+	* V 1.8.7: dataset_x_copy() and  dataset_y_copy().
+
+Tue Jan 14 11:24:29 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.6: Pretty print of command line options.  Works
+	suboptimally for long string options, but it should be okay for
+	most long descriptions.
+
+Mon Jan 13 14:56:49 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.5: Change to nn_solve to allow NaN targets.  Fix to
+	DSM_SUBSET creation function.  Autobuilding of nodelib.h.
+
+Fri Jan 10 10:40:37 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.4: New global called nn_offline_bignum_skip can be used to
+	skip bad training patterns in the offline test and grad functions.
+
+Thu Jan  9 14:56:27 1997  Gary William Flake  <flake@mojo>
+
+	* Improved upperlevel makefile.  Make newdist is much faster and
+	it does not require me to rebuild the main source tree after
+	doing it.
+
+	* V 1.8.3: Changed NN so that numin of NN is equal to sz of first
+	layer, not slab.  Did the same for the output as well.
+
+Wed Jan  8 11:55:07 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.2: Many bug fixes.  In the conjugate gradiant routine, the
+	aux vector (line search direction) was unitialized.  I must check
+	for the same problem in the other optimization routines.  In
+	nnfunc.c, the copy connection specs were incomplete.  I had the
+	copy link backward pass returning zero!  This was probably an
+	artifact of the early Elman-Jordan networks.
+
+Tue Jan  7 11:21:13 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.8.1: Removed limits on nn_link() and nn_create() format
+	lengths.
+
+	* V 1.8.0: DSM_FIFO type.  New files: dsfifo.[ch].
+
+Mon Jan  6 12:06:55 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.7.0: DSM_SUBSET type.  New files: dssubset.[ch].
+
+Thu Jan  2 14:55:06 1997  Gary William Flake  <flake@mojo>
+
+	* V 1.6.2: Mostly cosmetic changes to shutup warnings.
+
+	* V 1.6.1: SVD is in it's own module.  User can now use svd(),
+	spinv().
+
+Tue Dec 31 11:20:16 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.6.0: nn_link() and nn_create() now take a variable number fo
+	args.
+
+	* Now have pair-wise product links.  CNLS net, here I come.
+
+	* V 1.5.5: Prelim version of jacobian call.  I need to check it
+	against a difference technique.
+
+	* Found alignment bug in allocate_array(). Fixed.
+
+Mon Dec 30 11:36:21 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.5.4: nn_solve() can now work on any linear link.
+
+Fri Dec 27 11:13:56 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.5.3: Hopfield net example.
+
+	* V 1.5.2: Scalar connections.
+
+	* V 1.5.1: Updated the FAQ some, but it still needs more work.
+
+Thu Dec 26 16:18:22 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.5.0: SVD is now optionally interfaced to LAPACK routines.
+
+Wed Dec 18 09:38:29 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.4.2: forgot to remove debugging statements in svd.c.
+
+Tue Dec 17 23:06:51 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.4.1: Bug fix in pinv().
+
+Fri Dec 13 17:05:46 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.4.0: PCA with test and example. 
+
+Thu Dec 12 10:17:18 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.14: \em{} \bf{} extensions to h2man.
+
+	* V 1.3.13: dsm_file() changed to "rb" file acces mode for WIN32.
+
+Wed Dec 11 16:54:59 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.12: New svd routines.  We can now distribute NODElib
+	outside of the building.
+
+Mon Dec  9 10:17:51 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.10: nn_solve() skips patterns with NaN in the input or
+	outputs.  This is a feature that allows you to specify that a
+	targaet has no known value.
+
+Mon Dec  2 13:57:56 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.9: FAQ is now in html format.  Text version autoomagically
+	made with html2txt.
+
+Tue Nov 26 10:49:56 1996  Gary William Flake  <flake@mojo>
+
+	* Added nn.info fields for stochastically subsampling of a
+	DATASET.
+
+	* Removed index shuffling from nn_offline_grad().
+
+	* V 1.3.8: Testing and bug fixes for the DS_FILE code.
+
+Mon Nov 25 18:11:41 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.7: Added dsfile.c which contains methods for accessing
+	large binary flat files.  This is currently untested.
+
+	* Added SL_TYPE as an enum in misc.h to specify primitive C
+	types.  The OPT_TYPEs are redefined in terms of them.
+
+Thu Nov 21 14:21:56 1996  Gary William Flake  <gary@localhost.flake.org>
+
+	* V 1.3.6: Added test program directory.  Test program for
+	arrays works.  More to come.
+
+	* deallocate_array() takes a single argument.
+
+	* allocate_array() now allocates with one xalloc() call and keeps
+	all data memory contiguous.
+
+	* Added define srandom to srand for Windows in misc.h.
+
+	* Version info available from nodelib_version().
+
+	* Added DS_METHODs for C double pointer pointers.
+
+Wed Nov 13 19:53:11 1996  Gary William Flake  <gary@localhost.flake.org>
+
+	* V 1.3.5: Rewrote nn_solve() so that linear algebra operations
+	are performed in a way that the storage is independant of the
+	number of data points in a DATASET.  This makes a huge difference
+	in memory consumption.
+
+Fri Nov  8 10:29:05 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.4: I changed my mind.  H2man now parses ugly protos
+	correctly, and will do a pretty-print.  This is a case of
+	substance (i.e., correctness) winning over style.  Whoopee.
+
+	* V 1.3.3: changed h2man so that prototypes with function pointers
+ 	are emited with the function pointer's args are removed.  This
+ 	makes the documentation technically incorrect but easier on the
+ 	eyes.
+
+	* V 1.3.2: Incorporated WEB's changes to make clean compile under
+ 	Windows NT.
+
+	* V 1.3.1: Scott Rickard identified problem with scan.  We can now
+ 	return newlines as delimiters.
+
+Thu Oct 17 11:17:42 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.3.0: Routines nn_solve() and nn_create_rbf() added. Very
+ 	cool.  Added rbf.c as a demo program.  Everything seems to work.
+  	Bumping up the minor version number.
+
+Wed Oct 16 09:47:35 1996  Gary William Flake  <flake@mojo>
+
+	* Hybrid line search seems to be robust and bullet proof.
+
+	* Renamed opt_conjgrad_* routines to just have the initials
+	instead of the full names, e.g., opt_conjgrad_fr() and
+	opt_conjgrad_pr().
+
+Tue Oct 15 13:48:18 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.2.2
+
+	* GMK's hybrid line search in place.  Beta only.  Needs better
+	bracketing.
+
+	* BFGS and DFP quasi-Newton procedures now in place.  xor.c
+	rewritten to have many choices for algorithms.
+
+Wed Oct  9 04:16:29 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.2.1
+
+	* html: new and fancy background.  Man2html, mkindex.pl, and
+	m2hlink.pl modified to use the background gif.
+
+	* linesrch.c: quadratic interpolation line search, adapted from
+	Ray Watrous's code.  Example of 1-d search now found in lsrch.c
+
+	* optmize.h: slightly generalized.  Fields added to mark integrity
+	of error and gradiant fields.  Couple of new function calls added
+	to do frequent tasks.
+
+Fri Sep 20 14:05:32 1996  Gary William Flake  <flake@mojo>
+
+	* FAQ: updated to reflect recent changes.
+
+Fri Sep 13 10:04:28 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.2.0
+
+	* Found another bug in h2man.pl similar to the last one.  The
+	trouble is, I am using foreach(@foo) loops and maintaining an
+	index simultaneously, and then splicing @foo so as to remove
+	things.  The net effect is that the foreach() loop get's out of
+	sync with the index.  Solution: use for() loops instead.
+
+	* Found little memory leak in nn_read().  memleak.c now does a
+	check.  Thanks Emin.
+
+	* Made small little change in nnafunc.c and nnafunc so that the
+ 	 internal hash tables are completely destroyed by nn_shutdown().
+  	 Because of this, now you can continue using the NN library after
+ 	 shutdown, but things are guaranteed to be clean after the
+ 	 shutdown call.  This is A Good Thing.
+
+Thu Sep 12 11:04:07 1996  Gary William Flake  <flake@mojo>
+
+	* index.html is automagically generated by mkindex.sh.
+
+	* README is now automagically generated by mkreadme.sh.
+
+	* Every header file now has synopsis section which serves as a
+	brief introduction.
+
+	* Verbose clustering example in cluster.c.
+
+	* K-means clustering now in place.
+
+Wed Sep 11 13:55:04 1996  Gary William Flake  <flake@mojo>
+
+	* Fixed bug in h2man.pl that caused script to ignored prototypes
+	with /*\*/ comments to denote multi-line prototypes.
+
+Wed Sep  4 09:45:26 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.1.2
+
+	* xor.c is now extremely verbose.
+
+	* GNUMakefile: make dist = tar bigtar zip.
+
+	* Completed documentation for all modules.
+
+	* m2hlink.pl: made type cross linking work with enum typedefs.
+
+Tue Sep  3 11:27:59 1996  Gary William Flake  <flake@mojo>
+
+	* V 1.1.1
+
+	* Matrices are now legal DATASETs.
+
+	* WEB's Window fixes mostly incorporated.
+
+	* Renamed PATTERN to SERIES to work around Windows name space
+	problems.  Created the DATASET type which wraps around the series
+	type.  Eventually, files, matrices and series will all be visible
+	as a special case of a dataset.
+
+Thu Aug 22 15:51:17 1996  Gary William Flake  <flake@mojo>
+
+	* Changelog: This is version 1.0.0.  Let the wild party begin.
+
+

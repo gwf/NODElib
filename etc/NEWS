@@ -1,0 +1,136 @@
+Nodelib NEWS:
+
+1.12.0:  The union of several DATASETs can be treated as one by using
+         the DSM_UNION type.
+
+1.11.9:  Alias links supported but untested.
+
+1.11.0:  Online kmeans added.  Thanks Chris.  API to nn_create_rbf()
+         and nn_create_smlp() has been simplified (e.g., there are no
+         more "random" and "normalized" version of these calls.)
+         These options are now set to reasonable defaults controlled
+         by library globals.  See kmeans.3 and the bottom of nn.3 for
+         more details.
+
+1.10.0:  Variable length delays for SERIES.  The program tseries.c 
+         tests the implementation of this.
+
+1.9.11:  Backprop!  Whoopeee!
+
+1.9.10:  Supports SMLP architecture.  RBF, NRBF, and SMLP creation
+         calls have variants that either use K-means clustering or
+         random sampling of the input space.
+
+1.9.4:   Weight decay for OPTIMIZERs.
+
+1.9.0:   Normalized links can be used to normalize entire layers.  This
+         new feature is used in the nn_create_nrbf() function which
+         creates an RBF with normalized basis functions.
+
+1.8.9:   NN_LINK for copy connection without backprop.
+
+1.8.8:   DSM_FILE routines are now memory mapped under unix.
+
+1.8.7:   Two new DATASET functions for returning data in your own
+         space: dataset_x_copy() and dataset_y_copy().
+
+1.8.0:   The DSM_FIFO DATASET_METHOD allows you to have a DATASET that
+         only contains the most current data.  On creation, you decide
+         how big the DSM_FIFO should be.  Each time you add a new
+         pattern the oldest will overwritten.
+
+1.7.0:   The DSM_SUBSET DATASET_METHOD allows you to make a temporary
+         meta-dataset that consist of a subset of another DATASET.
+         This is handy of you are doinf incremental-like learning on a
+         huge set.
+
+1.6.1:   A new SVD module is now available.  There is also a spinv()
+         call which assumes a positive definite input matrix.
+
+1.6.0:   Weightless pairwise product links.  CNLS network architecture
+         is now supported with the new links.  An example CNLS network
+         is given.  nn_create() and nn_link() now take a variable
+         number of arguments, just like a printf().  You can use "%d"
+         and extra arguments instead of doing your own sprintf() call
+         for architectures that are not determined until runtime.
+
+1.5.5:   Preliminary version nn_jacobian().  Fixed alignment bug in
+         allocate_array().
+
+1.5.4:   nn_solve() can now work on any linear link.  This makes
+         incremental regression a snap.
+
+1.5.3:   Hopfield network example solving a combinatorial optimization
+         problem which uses the scalar link type from the previous
+         release.
+
+1.5.2:   A new scalar connection type is now supported.  Given two
+         layers with the same number of nodes (named SOURCE and SINK,
+         for example), we now have a connection that does
+         SINK[i] = a[i] * SOURCE[i].  Note that SOURCE and SINK can be
+         the same layer, so this allows for a type of recurrent
+         memory.
+
+1.5.0:   NODElib's SVD routine can now use LAPACK and BLAS.  This can
+         result in an order of magnitude increase in speed for pca(),
+         pinv(), and nn_solve() calls.  See the FAQ for more details.
+
+1.4.0:   PCA now inplace for any DATASET type.
+
+1.3.14:  Extension to h2man for \em{} and \bf{} instead of embedded
+         nroff code.  This makes the header files more readable.
+
+1.3.12:  pinv() is now based on a non NRC SVD routine.
+
+1.3.10:  nn_solve() will skip patterns with targets set to NaN.
+
+1.3.9:   FAQ list in HTML format.
+
+1.3.8:   Testing and bug fixes for DSM_FILE code.
+
+1.3.7:   DS_METHOD for large binary flat files, but untested.
+
+1.3.6:   DS_METHOD for dynamic C matrices implemented for pointers to
+         pointers to doubles.  The allocate_array() function now works
+         with a single malloc call and keeps all data memory
+         contiguous.  Test programs for modules will now be placed in
+         the test subdirectory.  More to follow.
+
+1.3.5:   The nn_solve() routine is now very memory efficient.  Storage
+         is now independent of the DATASET size.
+
+1.3.4:   Automagic documentation generation now handles elaborate
+         function prototypes.
+
+1.3.2:   Compiles clean under Windows.  Thanks WEB.
+
+1.3.1:   Change in SCAN module now allows newlines as delimiters, per
+         Rickard's request.
+
+1.3.0:   Linear weights can now be solved for exactly with an SVD
+         routine.  An RBFN can be created, have it's centers clustered,
+         and its linear weights solved for exactly with a single
+         function call.  
+
+1.2.2:   BFGS and DFP quasi-Newton search.  GMK's hybrid line search in
+         beta release. There are now five distinct optimization
+         algorithms, each of which can use three different line search
+         routines.
+
+1.2.1:   OPTIMIZE type generalized for line searches.  Cubic line search
+         is now supported.  Example is included.
+
+1.2.0:   K-means clustering with example in cluster.c.  HTML directory
+         now has an automagically generated index file.
+
+1.1.2:   Most (all?) documentation is complete. Xor.c is now a verbosely
+         documented example.
+
+1.1.1:   Builds under Windows. C Matrices can now be used as DATASETs.
+
+1.1.0:   PATTERN renamed to SERIES.  All of the function names for
+         PATTERNs have changed as well.  DATASET is now the most generic
+         data type for NNs.  SERIES is a special case of DATASET.
+
+1.0.0:   First formal release.  Almost builds under Windows.  Now has
+         hyperlinked HTML.

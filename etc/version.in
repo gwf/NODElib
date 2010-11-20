@@ -1,0 +1,31 @@
+
+#ifndef __NODELIB_VERSION_H__
+#define __NODELIB_VERSION_H__
+
+#define NODELIB_USER      "%USER%"
+#define NODELIB_HOST      "%HOST%"
+#define NODELIB_UNAME     "%UNAME%"
+#define NODELIB_DATE      "%DATE%"
+#define NODELIB_COMPILER  "%COMPILER%"
+#define NODELIB_VERSION   "%VERSION%"
+#define NODELIB_COPYRIGHT "Copyright (c) 1995-%YEAR% by G. W. Flake."
+
+static const char *nodelib_info[] = {
+  NODELIB_USER,
+  NODELIB_HOST,
+  NODELIB_UNAME,
+  NODELIB_COMPILER
+  NODELIB_DATE,
+  NODELIB_VERSION,
+  NODELIB_COPYRIGHT
+};
+
+
+/* Silly little hack so that gcc doesn't complain about nodelib_info
+   being unused. */
+
+static void *nodelib_info_kluge[] = { (void *) & nodelib_info_kluge, 
+                                      (void *) & nodelib_info };
+
+#endif /* __NODELIB_VERSION_H__ */
+

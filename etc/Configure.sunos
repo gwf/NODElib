@@ -1,0 +1,83 @@
+#########################################################################
+#
+# Copyright (c) 1995-2000 by G. W. Flake.
+#
+#########################################################################
+#########################################################################
+
+
+# SVD Configuration section:
+
+# There are three ways to compile NODElib in terms of how an SVD is
+# computed.  The configurable compile options are given below.
+#
+# 1) Use the simplest SVD version which is included in the library.
+#    This requires no additional work on your part, should give fair
+#    results, but will be unbelievably slow for large problems.
+#
+#    CPPFLAGS  = -I../include
+#    LDFLAGS   = -L../lib
+#    LIBS      = -lnode -lm
+#
+# 2) If you have BLAS, LAPACK, and F2C installed on your system, then
+#    NODELIB can be linked to them.  This will give vastly superior
+#    results to option 1), but you must have the three libraries:
+#
+#    CPPFLAGS  = -I../include -DLAPACK
+#    LDFLAGS   = -L../lib -L/LAPACK_BLAS_AND_F2C_LIBRARY_PATHS
+#    LIBS      = -lnode -llapack -lblas -lf2c -lm
+#
+# 3) If neither of the above options are appealing, then link NODElib
+#    to NLElib (NODElib extensions).  Precompiled libraries are
+#    available for Sun-Solaris, i386-Linux, and i386-WinNT.  NLElib
+#    consists of the minimal portions of BLAS, LAPACK, and F2C needed
+#    to get the industrial strength SVD routine working.  NLElib is
+#    static in that there are no plans for any changes to be made to
+#    it.  Thus, you get this library once, and never worry about it
+#    again. 
+#
+    CPPFLAGS  = -I../include
+    LDFLAGS   = -L../lib
+    LIBS      = -lnode -lnle -lm
+
+#    CPPFLAGS  = -I../include
+#    LDFLAGS   = -L../lib
+#    LIBS      = -lnode -lm
+
+#########################################################################
+
+AR        = ar
+AWK       = gawk
+CC        = gcc
+DEPEND    = $(CC) -MM
+LEX       = flex
+MAKE      = gmake
+NROFF     = nroff
+PERL      = perl5
+RANLIB    = ranlib
+SED       = sed
+SHELL     = /bin/sh
+TAR       = gtar
+YACC      = bison
+ZIP       = gzip
+H2MAN     = $(PERL) ../etc/h2man.pl -source NODElib -manual "NODElib Manual"
+H2HTML    = $(PERL) ../etc/h2html.pl
+
+#########################################################################
+
+#CFLAGS    = -g -pg -Wall
+#LIBS      = -lNODE -lnle -lm -pg
+
+CFLAGS    = -O4 -Wall
+
+#CFLAGS    = -g -Wall
+#CFLAGS    = -g -Wall -DXALLOC_DEBUG
+
+MAKEFLAGS = -S
+YFLAGS    = -d -v
+LFLAGS    = -s
+
+OUTPUT_OPTION = -o $@
+
+#########################################################################
+

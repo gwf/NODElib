@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ `uname -s` = Linux ]; then 
+   echo Configuring for Linux
+   cd etc
+   rm -f Configure
+   ln -s Configure.unix Configure
+elif [ `uname -s` = SunOS ]; then
+   if [ `uname -r | sed 's/ *\([^ ]\).*/\1/g'` = 5 ]; then
+     echo Configuring for Solaris
+     cd etc
+     rm -f Configure
+     ln -s Configure.unix Configure
+   else
+     echo Configuring for SunOS
+     cd etc
+     rm -f Configure
+     ln -s Configure.sunos Configure
+   fi
+fi
+
+exit 0

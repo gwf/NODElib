@@ -1,0 +1,247 @@
+
+body {
+background:#ddc;
+margin:0;
+padding:0px;
+text-align:left;
+}
+
+body, table {
+font: 11px/1.1 Verdana, Arial, Helvetica, sans-serif;
+}
+
+html body h1 {
+background:#866;
+color:#ddc;
+margin:20px 0px 20px 0px;
+padding:20px 10px 10px 50px;
+border-top:1px dashed #998;
+border-bottom:1px dashed #998;
+font: small-caps bold 22px Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 p {
+margin:5px 0px 0px 0px;
+padding:0px;
+font: 11px/1.1 Verdana, Arial, Helvetica, sans-serif;
+}
+
+#content {
+margin:0px 150px 0px 0px;
+padding-bottom:20px;
+overflow:auto;
+}
+
+#content p.code {
+color:#339;
+background:#eed;
+margin-bottom:0px;
+border-top:1px solid #fff;
+border-right:1px solid #bbb;
+border-left:1px solid #fff;
+border-bottom:1px solid #bbb;
+padding:5px;
+font: 9px/1.1 monospace, Courier, Fixed;
+}
+
+#right {
+position:absolute;
+width:145px;
+top:10px;
+right:0px;
+margin:0px;
+}
+
+div#vmenu {
+margin-left:10px;
+margin-right:10px;
+width:auto;
+z-order:100;
+}
+
+div#vmenu h1 {
+display:block;
+text-align:center; 
+padding:5px;
+margin:0px;
+text-decoration:none;
+color:#ddc;
+border:2px solid #ddc;
+background:#557;
+font: bold 11px/1.1 Verdana, Arial, Helvetica, sans-serif;
+border-top:2px solid #fff;
+border-right:2px solid #bbb;
+border-left:2px solid #fff;
+border-bottom:2px solid #bbb;
+border:1px dashed black;
+}
+
+div#vmenu a {
+display:block;
+text-align:center; 
+padding:5px;
+margin:2px;
+text-decoration:none;
+color:#633;
+border:1px solid #aa9;
+font-size:10px;
+background:#ddc;
+border-top:1px solid #fff;
+border-right:1px solid #bbb;
+border-left:1px solid #fff;
+border-bottom:1px solid #bbb;
+}
+
+div#vmenu a:hover {
+background:#ccb;
+text-decoration:none;
+border-top:1px solid #bbb;
+border-right:1px solid #fff;
+border-left:1px solid #bbb;
+border-bottom:1px solid #fff;
+}
+
+div#vmenu a span {display: none;}
+
+div#vmenu a:hover span {
+display:block;
+position:absolute;
+/*top:450px;*/
+bottom:-100px;
+left:0;
+padding:10px;
+margin-left:10px;
+margin-right:10px;
+width:auto;
+color:#733;
+font-size:10px;
+text-align:center;
+}
+
+img {
+margin:0px 0px 15px 10px;
+float:left;
+display:inline;
+border:1px solid #bbb;
+}
+
+#content h1 {
+text-align:left;
+font: small-caps bold 16px Verdana, Arial, Helvetica, sans-serif;
+margin:30px 0px 5px 50px;
+padding:0px;
+border:none;
+clear:both;
+background:#ddc;
+color:#335;
+border-top:1px dashed #aa9;
+}
+
+#content h1, #content h1 a, #content h1 a:hover {
+text-decoration:none;
+}
+
+#content h2 {
+font-weight:bold;
+font-size:10px;
+text-align:right;
+float:left;
+width:80px;
+margin:3px 0px 0px 9px;
+padding:0px;
+}
+
+#content h2 p {
+font-weight:normal;
+font-size:9px;
+text-align:right;
+width:100px;
+float:left;
+position:relative;
+margin:0px;
+padding:3px 0px;
+}
+
+#content h3 {
+text-align:left;
+margin:0px 0px 2px 100px;
+border-bottom:1px solid #bbb;
+font:bold 11px/1.2 Verdana, Arial, Helvetica, sans-serif;
+}
+
+#content p, #content ul {
+text-align:left;
+margin:0px 0px 2ex 100px;
+font:11px/1.2 Verdana, Arial, Helvetica, sans-serif;
+width:auto;
+}
+
+#content ul li ul {
+margin:0px 0px 2ex 20px;
+}
+
+#content ul {
+padding:0px;
+margin-bottom:10px;
+} 
+
+li {
+margin:0px 0px 5px 15px;
+padding:0px;
+}
+
+tt {
+font-family:monospace;
+font-size:11px/1.0;
+}
+
+#content table, tr, td {
+vertical-align:top;
+padding:0px;
+margin:0px;
+}
+
+#content a:link, #content a:visited,  #content a:active {
+text-decoration:none;
+color:#337;
+border-bottom:1px dotted #bbb;
+}
+
+#content a:hover {
+text-decoration:underline;
+color:#339;
+border-bottom:dotted #ccc 1px;
+}
+
+#content p.quote {
+margin-right:20px;
+margin-bottom:0px;
+text-align:left;
+font-style:italic;
+}
+
+#content p.cite {
+margin-top:0px;
+text-align:right;
+margin-bottom:15px;
+width:auto;
+}
+
+#content cite {
+margin-top:0px;
+text-align:right;
+margin-bottom:15px;
+font-weight:bold;
+width:auto;
+}
+
+.note { color:#887; }
+
+@media print {
+#content { border:none; }
+div#top { border:none; }
+a:link, a:visited,  a:active { border:none; }
+a:hover { border:none; }
+div.menu { display:none; }
+#content h1 a, #content h1 a:hover { color:#000; }
+}

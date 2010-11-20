@@ -1,0 +1,66 @@
+#sn0.0:a
+#
+# This is a neural network with 4 inputs, 4 outputs,
+# 3 layers, 3 internal slabs, 2 links, and 22 trainable weights.
+#
+# The next string is an architecture descriptor:
+(4)(2)(4)
+#
+# The next section describes for each sublayer the activation function
+# and the auxiliary variables:
+none
+tanh
+logistic
+#
+# The next section describes for each link the net input function:
+2 # The number of links
+0 -l-> 1
+1 -l-> 2
+#
+# The next section states if the gradient for each link should be calculated:
+1 1
+# 
+# The next section contains all of the weights in verbose format.  The
+# format for the comment column is:
+# 
+#   (SOURCE) (DESTINATION) VAR[index, index, index]
+# 
+# where
+# 
+#   SOURCE       two integers for layer no. and sublayer no.
+#   DESTINATION  two integers for layer no. and sublayer no.
+#   VAR          one of A, u, v, w, a, or b
+#   INDICES      three for A, two for u, v, and w, and one for a and b
+# 
+# For the SOURCE or DESTINATION, if the sublayer number is -1 then the
+# link connects to (or from) an entire layer (i.e., not a sublayer).
+# 
+# As for the indices, the first always represents an output in the
+# destination layer.  For 'A' the second two indices refer to a pair of
+# nodes in the source layer.  For 'u' and 'v', the second index refers
+# to a single node in the source layer.  And for 'w', the second index
+# always refers to one of the NUMAUX variables which are uniquely
+# determined by the net function type.
+# 
+-3.221288296959e+00	# (  0, -1 ) (  1, -1 ) u[0][0]
+-3.876541660413e+00	# (  0, -1 ) (  1, -1 ) u[0][1]
+ 5.469252995722e+00	# (  0, -1 ) (  1, -1 ) u[0][2]
+ 3.981977181501e+00	# (  0, -1 ) (  1, -1 ) u[0][3]
+ 4.166439350408e+00	# (  0, -1 ) (  1, -1 ) u[1][0]
+-3.450596327042e+00	# (  0, -1 ) (  1, -1 ) u[1][1]
+-4.369253616083e+00	# (  0, -1 ) (  1, -1 ) u[1][2]
+ 3.832130605281e+00	# (  0, -1 ) (  1, -1 ) u[1][3]
+ 2.767298390412e-01	# (  0, -1 ) (  1, -1 ) a[0]
+-1.386422313588e-01	# (  0, -1 ) (  1, -1 ) a[1]
+-5.251734250710e+00	# (  1, -1 ) (  2, -1 ) u[0][0]
+ 5.268897614068e+00	# (  1, -1 ) (  2, -1 ) u[0][1]
+-7.111749897215e+00	# (  1, -1 ) (  2, -1 ) u[1][0]
+-6.974603680841e+00	# (  1, -1 ) (  2, -1 ) u[1][1]
+ 5.203314051434e+00	# (  1, -1 ) (  2, -1 ) u[2][0]
+-5.285156023941e+00	# (  1, -1 ) (  2, -1 ) u[2][1]
+ 5.374586372091e+00	# (  1, -1 ) (  2, -1 ) u[3][0]
+ 5.427678732377e+00	# (  1, -1 ) (  2, -1 ) u[3][1]
+-5.268980053847e+00	# (  1, -1 ) (  2, -1 ) a[0]
+-5.532812108939e+00	# (  1, -1 ) (  2, -1 ) a[1]
+-5.619915972152e+00	# (  1, -1 ) (  2, -1 ) a[2]
+-4.585232787329e+00	# (  1, -1 ) (  2, -1 ) a[3]

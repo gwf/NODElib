@@ -1,0 +1,65 @@
+
+NODElib should build on most systems with little difficulty.  If any
+tweaking of NODElib is necessary, all changes will probably be
+restricted to the file etc/Configure.  In general, to build the full
+system, you must have: GNU gcc, GNU make, ar, ranlib, nroff, perl,
+sed, and perhaps awk.  GNU tar may also be needed if you are a
+developer that plans on distributing the system.
+
+To build everything:
+
+ 1) Check that the program variables listed in etc/Configure are
+    reasonably set.  You may need to specify explicit paths for the
+    programs if your system is deficient.
+
+ 2) Try ``make all'' from the root directory.
+
+ 3) If the documentation fails to build, use ``make libs''.  You may
+    also find a pre-built version which includes documentation.
+
+ 4) If all else fails, use etc/Makefile.dos as a template and roll
+    your own Makefile for the src directory.  See etc/INSTALL for
+    Makefile / GNUmakefile details.
+--
+
+Details of the GNUmakefile:
+
+  make libs       - Makes a version information header file in etc,
+                    all *.o files in src, and links the *.o files into
+                    a library file in the lib directory.
+
+  make docs       - Makes all man pages in the man directory and all
+                    *.html files in the html directory.
+
+  make all        - Approximately equivalent to ``make libs docs''.
+
+  make clean      - Removes src/*.o files and binaries in etc.
+
+  make distclean  - Same as ``make clean'', but removes lib/libnode.a
+                    as well.
+
+  make realclean  - Removes all machine generated files, including man
+                    pages and html files.
+
+  make tar        - Makes the plain distribution.  The output is
+                    placed in the etc directory.
+
+  make bigtar     - Makes the pre-built distribution with man pages and
+                    html files.  The output is placed in the etc
+                    directory.
+
+  make zip        - Makes a prebuilt version suitable for a DOS system.
+                    The output is placed in the etc directory.  All
+                    files in the main distribution are included, but
+                    they may be renamed and/or relocated.  In particular,
+                    all of the original Makefiles will be placed in
+                    the etc directory, with a three letter extension
+                    to indicate it's original location.  Thus, in
+                    theory, one could reconstruct the original
+                    distribution from the PC distribution.
+
+  make dist       - Makes tar, bigtar, and zip, and moves the archive
+                    files to the ".." directory.
+
+  make newdist    - Makes everything and, reinstalls it all on the AS
+                    file servers, updates my web page, and ftp site, etc.

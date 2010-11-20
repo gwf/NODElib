@@ -1,0 +1,23 @@
+Coming soon (in a somewhat prioritized order):
+
+ * Optimization algorithms should have a reasonable bail-out
+   procedure.  We should save the last/best set of weights and restore
+   them on numerical difficulty.
+ * Function nn_solve() should work on all weights that are linear in
+   the output.  This would allow for a type of incremental regression.
+ * Basic correlation routines are needed, i.e. xi-to-xj, xi_to_yj and
+   xi_tk-to-xi_tl.
+ * Present and future examples (for the purposes of a latter TR):
+    - Straight MLP
+    - Linear system with LMS solution
+    - RBF with LMS solution and K-means clustering for centers
+    - Higher order NN
+    - Truly exotic architectures
+    - Embedding known systems into a NN
+    - Time series forecasting
+    - Different optimization routines
+    - Pattern classification
+    - DB mining
+    - Jacobian of a NN
+    - Hessian of a NN
+    - Controller (teacher, model inversion, differential model, ...)

@@ -1,0 +1,32 @@
+Greetings:
+
+I am pleased to announce that NODElib is publicly available under the
+GNU public license.  NODElib is a research and development programming
+library that can be used to rapidly produce neural network
+simulations.  Some of NODElib's more advance features include:
+
+ * A vast number NN architectures unified under a general framework:
+   MLP, RBFN, higher-order, SMLP, CNLS, arbitrary activation
+   functions, arbitrary connectivity, etc.
+
+ * Advanced algorithms for all of the above: calculation of the
+   Hessian, optimization of the Jacobian, etc.
+
+ * Support vector machines with a generalized version of SMO that
+   handles regression and kernel caching.
+
+ * Advanced optimization routines with options for line search
+   procedures.
+
+ * Plus many other features...
+
+An overview of NODElib can be found at:
+
+    http://www.neci.nj.nec.com/homepages/flake/nodelib/html/
+ 
+And the actual library itself can be downloaded from:
+ 
+   http://www.neci.nj.nec.com/homepages/flake/nodelib.tgz
+
+Best,
+-- GWF

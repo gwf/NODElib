@@ -1,0 +1,16 @@
+A tip of the hat goes to:
+
+ * Thomas Petsche, Christian Darken, and Barak Pearlmutter:
+   Contributed to early discussions regarding the library structure.
+ * Nugroho Iwan Santoso, Scott Rickard, and Emin Aleskerov: Some
+   debugging reports.
+ * Wolf-Ekkehard Blanz: Ports to WIN32.
+ * Chris Darken: K-means clustering code.
+ * Ray Watrous: Cubic line search and discussion on other 
+   optimization issues.
+ * Gary Kuhn:  Hybrid golden-section line search with parabolic
+   interpolation.
+ * Bharat Rao: Encouraged me to rewrite nn_solve() to make it more
+   memory efficient.
+ * Frans Coetzee: Gave me my first real introduction to and encouraged
+   me to use LAPACK and BLAS.
